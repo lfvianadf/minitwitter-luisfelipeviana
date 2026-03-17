@@ -1,0 +1,183 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+        - generic [ref=e10]:
+          - button "Alternar tema" [ref=e11] [cursor=pointer]:
+            - img [ref=e12]
+          - button "Novo post" [ref=e14] [cursor=pointer]:
+            - img [ref=e15]
+          - generic [ref=e18]:
+            - generic [ref=e19]: LF
+            - button "Sair" [ref=e20] [cursor=pointer]:
+              - img [ref=e21]
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - img [ref=e27]
+          - textbox "Buscar posts..." [ref=e30]
+        - generic [ref=e31]:
+          - article [ref=e32]:
+            - generic [ref=e33]:
+              - generic [ref=e34]:
+                - generic [ref=e35]: LF
+                - generic [ref=e36]:
+                  - paragraph [ref=e37]: Luís Felipe Viana
+                  - paragraph [ref=e38]: 17 de mar de 2026 às 17:49:06
+              - generic [ref=e39]:
+                - button "Editar post" [ref=e40] [cursor=pointer]:
+                  - img [ref=e41]
+                - button "Deletar post" [ref=e44] [cursor=pointer]:
+                  - img [ref=e45]
+            - generic [ref=e48]:
+              - heading "Post de teste 1773780546022" [level=2] [ref=e49]
+              - paragraph [ref=e50]: Conteúdo criado pelo teste E2E.
+            - button "1" [ref=e52] [cursor=pointer]:
+              - img [ref=e53]
+              - generic [ref=e55]: "1"
+          - article [ref=e56]:
+            - generic [ref=e57]:
+              - generic [ref=e58]:
+                - generic [ref=e59]: LF
+                - generic [ref=e60]:
+                  - paragraph [ref=e61]: Luís Felipe Viana
+                  - paragraph [ref=e62]: 17 de mar de 2026 às 17:44:13
+              - generic [ref=e63]:
+                - button "Editar post" [ref=e64] [cursor=pointer]:
+                  - img [ref=e65]
+                - button "Deletar post" [ref=e68] [cursor=pointer]:
+                  - img [ref=e69]
+            - generic [ref=e72]:
+              - heading "Post de teste 1773780253285" [level=2] [ref=e73]
+              - paragraph [ref=e74]: Conteúdo criado pelo teste E2E.
+            - button "0" [ref=e76] [cursor=pointer]:
+              - img [ref=e77]
+              - generic [ref=e79]: "0"
+          - article [ref=e80]:
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - generic [ref=e83]: LF
+                - generic [ref=e84]:
+                  - paragraph [ref=e85]: Luís Felipe Viana
+                  - paragraph [ref=e86]: 17 de mar de 2026 às 17:39:47
+              - generic [ref=e87]:
+                - button "Editar post" [ref=e88] [cursor=pointer]:
+                  - img [ref=e89]
+                - button "Deletar post" [ref=e92] [cursor=pointer]:
+                  - img [ref=e93]
+            - generic [ref=e96]:
+              - heading "Para deletar 1773779987223" [level=2] [ref=e97]
+              - paragraph [ref=e98]: Será deletado.
+            - button "0" [ref=e100] [cursor=pointer]:
+              - img [ref=e101]
+              - generic [ref=e103]: "0"
+          - article [ref=e104]:
+            - generic [ref=e105]:
+              - generic [ref=e106]:
+                - generic [ref=e107]: LF
+                - generic [ref=e108]:
+                  - paragraph [ref=e109]: Luís Felipe Viana
+                  - paragraph [ref=e110]: 17 de mar de 2026 às 17:39:41
+              - generic [ref=e111]:
+                - button "Editar post" [ref=e112] [cursor=pointer]:
+                  - img [ref=e113]
+                - button "Deletar post" [ref=e116] [cursor=pointer]:
+                  - img [ref=e117]
+            - generic [ref=e120]:
+              - heading "Post de teste 1773779981455" [level=2] [ref=e121]
+              - paragraph [ref=e122]: Conteúdo criado pelo teste E2E.
+            - button "1" [ref=e124] [cursor=pointer]:
+              - img [ref=e125]
+              - generic [ref=e127]: "1"
+          - article [ref=e128]:
+            - generic [ref=e129]:
+              - generic [ref=e130]:
+                - generic [ref=e131]: LF
+                - generic [ref=e132]:
+                  - paragraph [ref=e133]: Luís Felipe Viana
+                  - paragraph [ref=e134]: 17 de mar de 2026 às 16:20:59
+              - generic [ref=e135]:
+                - button "Editar post" [ref=e136] [cursor=pointer]:
+                  - img [ref=e137]
+                - button "Deletar post" [ref=e140] [cursor=pointer]:
+                  - img [ref=e141]
+            - generic [ref=e144]:
+              - heading "dhkashdas" [level=2] [ref=e145]
+              - paragraph [ref=e146]: sadsadas
+            - img "dhkashdas" [ref=e148]
+            - button "0" [ref=e150] [cursor=pointer]:
+              - img [ref=e151]
+              - generic [ref=e153]: "0"
+          - article [ref=e154]:
+            - generic [ref=e156]:
+              - generic [ref=e157]: AC
+              - generic [ref=e158]:
+                - paragraph [ref=e159]: Ana Clara
+                - paragraph [ref=e160]: 17 de mar de 2026 às 16:15:14
+            - generic [ref=e161]:
+              - heading "baskdsad" [level=2] [ref=e162]
+              - paragraph [ref=e163]: ssadas
+            - button "0" [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+              - generic [ref=e168]: "0"
+          - article [ref=e169]:
+            - generic [ref=e171]:
+              - generic [ref=e172]: AS
+              - generic [ref=e173]:
+                - paragraph [ref=e174]: Alice Silva
+                - paragraph [ref=e175]: 17 de mar de 2026 às 10:47:12
+            - generic [ref=e176]:
+              - heading "Meu primeiro post" [level=2] [ref=e177]
+              - paragraph [ref=e178]: Olá mundo! Este é o meu primeiro tweet no Mini Twitter.
+            - button "3" [ref=e180] [cursor=pointer]:
+              - img [ref=e181]
+              - generic [ref=e183]: "3"
+          - article [ref=e184]:
+            - generic [ref=e186]:
+              - generic [ref=e187]: AS
+              - generic [ref=e188]:
+                - paragraph [ref=e189]: Alice Silva
+                - paragraph [ref=e190]: 17 de mar de 2026 às 10:47:12
+            - generic [ref=e191]:
+              - heading "ElysiaJS é incrível" [level=2] [ref=e192]
+              - paragraph [ref=e193]: Estou adorando construir APIs com Bun e ElysiaJS. É muito rápido!
+            - button "0" [ref=e195] [cursor=pointer]:
+              - img [ref=e196]
+              - generic [ref=e198]: "0"
+          - article [ref=e199]:
+            - generic [ref=e201]:
+              - generic [ref=e202]: BS
+              - generic [ref=e203]:
+                - paragraph [ref=e204]: Bob Santos
+                - paragraph [ref=e205]: 17 de mar de 2026 às 10:47:12
+            - generic [ref=e206]:
+              - heading "Dica de Bun" [level=2] [ref=e207]
+              - paragraph [ref=e208]: Você sabia que o Bun tem um SQLite nativo super veloz?
+            - button "1" [ref=e210] [cursor=pointer]:
+              - img [ref=e211]
+              - generic [ref=e213]: "1"
+          - article [ref=e214]:
+            - generic [ref=e216]:
+              - generic [ref=e217]: CO
+              - generic [ref=e218]:
+                - paragraph [ref=e219]: Charlie Oliveira
+                - paragraph [ref=e220]: 17 de mar de 2026 às 10:47:12
+            - generic [ref=e221]:
+              - heading "Frontend Moderno" [level=2] [ref=e222]
+              - paragraph [ref=e223]: Uma API bem estruturada facilita muito a vida de quem desenvolve o front.
+            - button "2" [ref=e225] [cursor=pointer]:
+              - img [ref=e226]
+              - generic [ref=e228]: "2"
+    - button "Novo post" [ref=e230] [cursor=pointer]:
+      - img [ref=e231]
+  - generic [ref=e234]:
+    - img [ref=e236]
+    - button "Open Tanstack query devtools" [ref=e284] [cursor=pointer]:
+      - img [ref=e285]
+```

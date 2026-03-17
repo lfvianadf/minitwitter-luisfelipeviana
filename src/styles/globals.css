@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #f8fafc;
+    --bg-card: #ffffff;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --brand: #0ea5e9;
+  }
+
+  .dark {
+    --bg: #0f172a;
+    --bg-card: #1e293b;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --brand: #38bdf8;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    @apply antialiased transition-colors duration-200;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    @apply rounded-2xl;
+  }
+
+  .input-base {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    @apply rounded-xl px-4 py-3 w-full text-sm outline-none transition-all duration-150
+           focus:ring-2 focus:ring-brand-400 focus:border-brand-400
+           placeholder:text-slate-400 dark:placeholder:text-slate-500;
+  }
+
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 active:scale-95
+           text-white font-display font-semibold text-sm
+           px-5 py-2.5 rounded-xl transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-slate-100 dark:hover:bg-slate-800
+           text-slate-600 dark:text-slate-400
+           font-medium text-sm px-4 py-2 rounded-xl transition-all duration-150
+           active:scale-95;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600 active:scale-95
+           text-white font-display font-semibold text-sm
+           px-5 py-2.5 rounded-xl transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+}
+
+/* Animations */
+.animate-in {
+  animation: slideUp 0.3s ease-out both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border) 25%,
+    var(--bg) 50%,
+    var(--border) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  @apply rounded-lg;
+}

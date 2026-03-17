@@ -4,16 +4,18 @@ Interface completa do Mini Twitter construída com React + TypeScript + Vite.
 
 ---
 
-## 🚀 Setup rápido
+## 🚀 Setup rápido local
 
 ```bash
 # 1. Instale as dependências
 npm install
 
-# 2. as variáveis de ambiente do supabase (imagens) já estão no .env
+# 2. configure suas variáveis de ambiente do supabase.
 
 # 3. Rode em dev
 npm run dev
+
+OBS: O back-end Elysia deve estar rodando no localhost:3000 para funcionamento correto da aplicação.
 ```
 
 ## ✅ Requisitos funcionais implementados
@@ -51,7 +53,9 @@ npm run test:e2e
 | Variável | Descrição | Padrão |
 |---------|-----------|--------|
 |VITE_API_URL | URL base da API backend | `http://localhost:3000` |
-|VITE_SUPABASE_URL | URL do supabase | está apenas no .env por segurança. |
-|VITE_SUPABASE_BUCKET | Nome do bucket (criado para o projeto) | b2bit
-|VITE_SUPABASE_ANON_KEY | Conta criada para o projeto | a chave está no .env, não irei colocá-la aqui por segurança. |
+|VITE_SUPABASE_URL | URL do supabase | inserir sua url do supabase. |
+|VITE_SUPABASE_BUCKET | Nome do bucket (criado para o projeto) | inserir o seu bucket
+|VITE_SUPABASE_ANON_KEY | Conta criada para o projeto | inserir sua chave de api do supabase |
+|Obs: Fazendo o Pull do código ou usando o link no início do Read.me você consegue testar com as minha variáveis de ambiente, todas seguras 🫣. |
+
 

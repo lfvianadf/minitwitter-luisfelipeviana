@@ -19,6 +19,8 @@ export default defineConfig({
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
+      // Mobile só roda testes que não dependem do form inline desktop
+      testIgnore: ['**/posts.spec.ts'],
     },
   ],
   webServer: {

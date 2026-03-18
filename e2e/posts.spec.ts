@@ -13,8 +13,27 @@ async function login(page: Page) {
   await page.getByPlaceholder('••••••••').fill(TEST_USER.password)
   await page.getByRole('button', { name: 'Entrar' }).click()
   await expect(page).toHaveURL(`${BASE_URL}/`, { timeout: 8000 })
-  // Garante que o feed carregou antes de continuar
   await page.waitForSelector('article', { timeout: 8000 })
+}
+
+// Helper: preenche o formulário de post independente de desktop ou mobile
+async function fillPostForm(page: Page, title: string, content: string) {
+  const isMobile = page.viewportSize()?.width ?? 1280
+  
+  if (isMobile < 640) {
+    // Mobile: usa o FAB para abrir o modal
+    await page.getByLabel('Novo post').click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await page.getByRole('dialog').getByPlaceholder('Título do seu post...').fill(title)
+    await page.getByRole('dialog').getByPlaceholder('O que está acontecendo?').fill(content)
+    await page.getByRole('dialog').getByRole('button', { name: 'Publicar' }).click()
+  } else {
+    // Desktop: usa o form inline
+    const form = page.locator('form').first()
+    await form.getByPlaceholder('Título do seu post...').fill(title)
+    await form.getByPlaceholder('O que está acontecendo?').fill(content)
+    await form.getByRole('button', { name: 'Publicar' }).click()
+  }
 }
 
 test.describe('Timeline', () => {
@@ -54,39 +73,31 @@ test.describe('Timeline', () => {
 test.describe('Criação de posts', () => {
   test('formulário de criação é exibido após login no desktop', async ({ page }) => {
     await login(page)
-    // O form inline só aparece no desktop (hidden sm:block)
-    // Usa o heading específico do formulário
     await expect(page.getByRole('heading', { name: 'Nova publicação' })).toBeVisible()
   })
 
   test('cria um post com título e conteúdo', async ({ page }) => {
     await login(page)
-
     const title = `Post de teste ${Date.now()}`
-    const content = 'Conteúdo criado pelo teste E2E.'
-
-    await page.getByPlaceholder('Título do seu post...').fill(title)
-    await page.getByPlaceholder('O que está acontecendo?').fill(content)
-
-    // Clica no botão Publicar dentro do form (não o do navbar)
-    await page.locator('form').getByRole('button', { name: 'Publicar' }).click()
-
+    await fillPostForm(page, title, 'Conteúdo criado pelo teste E2E.')
     await expect(page.getByText('Post publicado!')).toBeVisible({ timeout: 8000 })
     await expect(page.getByText(title).first()).toBeVisible({ timeout: 8000 })
   })
 
   test('não permite criar post sem título', async ({ page }) => {
     await login(page)
-    await page.getByPlaceholder('O que está acontecendo?').fill('Conteúdo sem título')
-    await page.locator('form').getByRole('button', { name: 'Publicar' }).click()
-    await expect(page.getByText('Título obrigatório')).toBeVisible()
+    const form = page.locator('form').first()
+    await form.getByPlaceholder('O que está acontecendo?').fill('Conteúdo sem título')
+    await form.getByRole('button', { name: 'Publicar' }).click()
+    await expect(page.getByText('Título obrigatório')).toBeVisible({ timeout: 5000 })
   })
 
   test('não permite criar post sem conteúdo', async ({ page }) => {
     await login(page)
-    await page.getByPlaceholder('Título do seu post...').fill('Título sem conteúdo')
-    await page.locator('form').getByRole('button', { name: 'Publicar' }).click()
-    await expect(page.getByText('Conteúdo obrigatório')).toBeVisible()
+    const form = page.locator('form').first()
+    await form.getByPlaceholder('Título do seu post...').fill('Título sem conteúdo')
+    await form.getByRole('button', { name: 'Publicar' }).click()
+    await expect(page.getByText('Conteúdo obrigatório')).toBeVisible({ timeout: 5000 })
   })
 })
 
@@ -99,16 +110,11 @@ test.describe('Interações com posts', () => {
 
   test('usuário autenticado pode curtir um post', async ({ page }) => {
     await login(page)
-
-    // Pega o botão de like pelo aria — é o que contém o ícone de coração
     const firstPost = page.locator('article').first()
-    // O like button é o primeiro button no footer do card
     const likeBtn = firstPost.locator('button').last()
     const countBefore = await likeBtn.locator('span').innerText()
-
     await likeBtn.click()
     await page.waitForTimeout(600)
-
     const countAfter = await likeBtn.locator('span').innerText()
     expect(countAfter).not.toBe(countBefore)
   })
@@ -117,7 +123,6 @@ test.describe('Interações com posts', () => {
 test.describe('Edição e exclusão de posts', () => {
   test('botões editar/deletar aparecem nos posts do usuário logado', async ({ page }) => {
     await login(page)
-    // Verifica que pelo menos um post tem os botões de ação
     await expect(page.getByLabel('Editar post').first()).toBeVisible({ timeout: 8000 })
     await expect(page.getByLabel('Deletar post').first()).toBeVisible({ timeout: 8000 })
   })
@@ -127,9 +132,7 @@ test.describe('Edição e exclusão de posts', () => {
 
     // 1. Cria
     const title = `Para deletar ${Date.now()}`
-    await page.getByPlaceholder('Título do seu post...').fill(title)
-    await page.getByPlaceholder('O que está acontecendo?').fill('Será deletado.')
-    await page.locator('form').getByRole('button', { name: 'Publicar' }).click()
+    await fillPostForm(page, title, 'Será deletado.')
     await expect(page.getByText('Post publicado!')).toBeVisible({ timeout: 8000 })
     await expect(page.getByText(title).first()).toBeVisible({ timeout: 8000 })
 

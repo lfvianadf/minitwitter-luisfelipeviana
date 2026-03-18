@@ -22,20 +22,21 @@ describe('Avatar', () => {
   })
 
   it('aplica tamanho sm corretamente', () => {
-    render(<Avatar name="Alice" size="sm" />)
-    const avatar = screen.getByText('A').parentElement
-    expect(avatar?.className).toMatch(/w-8/)
+    const { container } = render(<Avatar name="Alice" size="sm" />)
+    // Pega a div raiz do componente via container
+    const avatar = container.firstChild as HTMLElement
+    expect(avatar.className).toMatch(/w-8/)
   })
 
   it('aplica tamanho lg corretamente', () => {
-    render(<Avatar name="Alice" size="lg" />)
-    const avatar = screen.getByText('A').parentElement
-    expect(avatar?.className).toMatch(/w-14/)
+    const { container } = render(<Avatar name="Alice" size="lg" />)
+    const avatar = container.firstChild as HTMLElement
+    expect(avatar.className).toMatch(/w-14/)
   })
 
   it('usa tamanho md como padrão', () => {
-    render(<Avatar name="Alice" />)
-    const avatar = screen.getByText('A').parentElement
-    expect(avatar?.className).toMatch(/w-10/)
+    const { container } = render(<Avatar name="Alice" />)
+    const avatar = container.firstChild as HTMLElement
+    expect(avatar.className).toMatch(/w-10/)
   })
 })

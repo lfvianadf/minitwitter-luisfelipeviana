@@ -14,7 +14,9 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   const { user } = useAuthStore()
-  const { mutate: likePost } = useLikePost()
+  
+  // isLiking trava o botão durante a ida/volta da requisição no servidor
+  const { mutate: likePost, isPending: isLiking } = useLikePost()
   const { mutate: deletePost, isPending: isDeleting } = useDeletePost()
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
@@ -22,20 +24,25 @@ export function PostCard({ post }: PostCardProps) {
   const [isLikeAnimating, setIsLikeAnimating] = useState(false)
   const [imgError, setImgError] = useState(false)
 
-  // Compara como string para garantir que funciona com IDs numéricos do SQLite
   const isOwner = user && String(user.id) === String(post.authorId)
 
   const handleLike = () => {
-    if (!user) return
+    if (!user || isLiking) return
+
+    // Dispara a animação de escala (pulse-like)
     setIsLikeAnimating(true)
+    
+    // Envia o ID como string para bater com a lógica do hook
     likePost(String(post.id))
+    
+    // Remove a classe de animação após o término (0.35s conforme seu Tailwind)
     setTimeout(() => setIsLikeAnimating(false), 350)
   }
 
   return (
     <>
       <article className="card p-5 space-y-4 animate-in hover:shadow-md transition-shadow duration-200">
-        {/* Author */}
+        {/* Author Header */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
             <Avatar name={post.author.name} src={post.author.avatar} size="md" />
@@ -70,7 +77,7 @@ export function PostCard({ post }: PostCardProps) {
           )}
         </div>
 
-        {/* Content */}
+        {/* Content Section */}
         <div className="space-y-2">
           <h2 className="font-display font-semibold text-slate-900 dark:text-slate-100 text-base leading-snug">
             {post.title}
@@ -80,7 +87,7 @@ export function PostCard({ post }: PostCardProps) {
           </p>
         </div>
 
-        {/* Image */}
+        {/* Image Display */}
         {post.imageUrl && !imgError && (
           <div className="rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">
             <img
@@ -100,14 +107,14 @@ export function PostCard({ post }: PostCardProps) {
           </div>
         )}
 
-        {/* Footer */}
+        {/* Action Footer */}
         <div className="flex items-center gap-4 pt-1 border-t border-slate-100 dark:border-slate-700/50">
           <button
             onClick={handleLike}
-            disabled={!user}
+            disabled={!user || isLiking}
             className={cn(
-              'flex items-center gap-1.5 text-sm transition-all duration-150',
-              'hover:text-rose-500 disabled:opacity-50 disabled:cursor-not-allowed',
+              'flex items-center gap-1.5 text-sm transition-all duration-150 outline-none select-none',
+              'hover:text-rose-500 disabled:opacity-80 disabled:cursor-default',
               post.likedByMe
                 ? 'text-rose-500'
                 : 'text-slate-400 dark:text-slate-500'
@@ -115,8 +122,10 @@ export function PostCard({ post }: PostCardProps) {
           >
             <Heart
               className={cn(
-                'w-4 h-4 transition-all duration-150',
-                post.likedByMe && 'fill-rose-500',
+                'w-4 h-4 transition-all duration-150 origin-center',
+                // Aqui o ícone fica vermelho/preenchido baseado no estado do post
+                post.likedByMe && 'fill-rose-500 text-rose-500', 
+                // A animação roda independente de ser like ou deslike (estilo Instagram)
                 isLikeAnimating && 'animate-pulse-like'
               )}
             />
@@ -133,7 +142,7 @@ export function PostCard({ post }: PostCardProps) {
         </div>
       </article>
 
-      {/* Confirm Delete */}
+      {/* Modals & Dialogs */}
       <ConfirmDialog
         isOpen={showDeleteConfirm}
         onClose={() => setShowDeleteConfirm(false)}
@@ -147,7 +156,6 @@ export function PostCard({ post }: PostCardProps) {
         isLoading={isDeleting}
       />
 
-      {/* Edit Modal */}
       <PostEditModal
         post={post}
         isOpen={showEditModal}

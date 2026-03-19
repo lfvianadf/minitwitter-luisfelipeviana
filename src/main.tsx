@@ -9,7 +9,7 @@ import '@/styles/globals.css'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60, // 1 minute
+      staleTime: 1000 * 60,
       retry: 1,
     },
   },
@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Toaster
         position="top-right"
         toastOptions={{
-          duration: 3500,
+          duration: 5000,
           style: {
             fontFamily: "'DM Sans', sans-serif",
             fontSize: '14px',
@@ -34,9 +34,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           },
           success: {
             iconTheme: { primary: '#0ea5e9', secondary: '#fff' },
+            duration: 3500,
           },
           error: {
             iconTheme: { primary: '#ef4444', secondary: '#fff' },
+            duration: 6000,
           },
         }}
       />

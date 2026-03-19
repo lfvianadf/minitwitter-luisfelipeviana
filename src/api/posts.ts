@@ -1,4 +1,5 @@
 import { api } from './axios'
+import { useLikesStore } from '@/store/likes.store'
 import type {
   CreatePostPayload,
   UpdatePostPayload,
@@ -6,7 +7,6 @@ import type {
   NormalizedPost,
 } from '@/types'
 
-// Formato real que a API do Elysia retorna
 interface RawPost {
   id: number
   title: string
@@ -27,6 +27,10 @@ interface RawPostsResponse {
 }
 
 function normalizePost(raw: RawPost): NormalizedPost {
+  // API não retorna likedByMe na listagem — lê do localStorage
+  const likedByMe =
+    raw.likedByMe ?? useLikesStore.getState().isLiked(String(raw.id))
+
   return {
     id: String(raw.id),
     title: raw.title,
@@ -38,7 +42,7 @@ function normalizePost(raw: RawPost): NormalizedPost {
       name: raw.authorName,
     },
     likesCount: raw.likesCount ?? 0,
-    likedByMe: raw.likedByMe ?? false,
+    likedByMe,
     createdAt: raw.createdAt,
     updatedAt: raw.createdAt,
   }
@@ -86,16 +90,8 @@ export const postsApi = {
     await api.delete(`/posts/${id}`)
   },
 
-  like: async (id: string): Promise<{ likesCount: number; likedByMe: boolean }> => {
-    const { data } = await api.post<{
-      likesCount?: number
-      likes_count?: number
-      likedByMe?: boolean
-      liked_by_me?: boolean
-    }>(`/posts/${id}/like`)
-    return {
-      likesCount: data.likesCount ?? data.likes_count ?? 0,
-      likedByMe: data.likedByMe ?? data.liked_by_me ?? false,
-    }
+  like: async (id: string): Promise<{ liked: boolean }> => {
+    const { data } = await api.post<{ liked: boolean }>(`/posts/${id}/like`)
+    return { liked: data.liked }
   },
 }

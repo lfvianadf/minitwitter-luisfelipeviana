@@ -7,7 +7,7 @@ export function getAxiosErrorMessage(error: unknown, fallback = 'Ocorreu um erro
     const message = data?.message || data?.error
 
     if (status === 403) return 'Você não tem permissão para realizar essa ação.'
-    if (status === 401) return 'Sessão expirada. Faça login novamente.'
+    if (status === 401) return 'Credenciais inválidas.'
     if (status === 400 && message) return message
     if (message) return message
   }
